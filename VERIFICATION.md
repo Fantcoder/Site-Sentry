@@ -111,6 +111,13 @@ Generated sample reports in docs\samples:
 Grade: F, Score: 30/100, Total Findings: 15
 ```
 
+### 1.8 Remote GitHub Actions CI Execution
+**Workflow Run:** [Run 41453873932](https://github.com/Fantcoder/Site-Sentry/actions/runs/41453873932)  
+**Trigger Commit:** [`b8371ee`](https://github.com/Fantcoder/Site-Sentry/commit/b8371ee)  
+**Status:** **Success (100% Passing)**
+- **Test & Lint (Python 3.11):** Passed (Checkout, setup-uv, ruff, mypy, bandit, pip-audit, pytest)
+- **Test & Lint (Python 3.12):** Passed (Checkout, setup-uv, ruff, mypy, bandit, pip-audit, pytest)
+
 ---
 
 ## 2. Explicit UNVERIFIED List
@@ -118,6 +125,5 @@ Grade: F, Score: 30/100, Total Findings: 15
 In accordance with engineering guidelines, the following items were not executed in this environment and remain explicitly unverified:
 
 - [ ] **Docker image build & runtime execution:** Docker daemon is not available inside this development container.
-- [ ] **GitHub Actions remote workflow execution:** CI pipeline YAML has been committed with SHA pins and default `main` branch matching, but has not yet run on GitHub's remote runners.
 - [ ] **Scanning third-party live domains:** All tests deliberately targeted the in-process vulnerable server and unit mocks to adhere to the non-negotiable safety rules.
 - [ ] **Live TLS handshake against third-party public CAs:** TLS checks were verified using local mock sockets and unit test harnesses.
