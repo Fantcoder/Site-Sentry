@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiteSentry Report – http://127.0.0.1:59205</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          background: #f5f6fa; color: #2c3e50; margin: 0; padding: 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+  h2 { margin-top: 30px; }
+  .meta-grid { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px;
+               background: #fff; padding: 20px; border-radius: 8px;
+               box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 20px; }
+  .meta-grid dt { font-weight: 600; color: #7f8c8d; }
+  .grade-badge { display: inline-block; background: #e74c3c; color: #fff;
+                  font-size: 3rem; font-weight: 900; width: 90px; height: 90px;
+                  line-height: 90px; text-align: center; border-radius: 12px;
+                  float: right; margin: -10px 0 10px 20px; }
+  .score { font-size: 1.2rem; color: #e74c3c; font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border-radius: 8px; overflow: hidden;
+           box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 20px; }
+  th { background: #3498db; color: #fff; padding: 10px 14px; text-align: left; }
+  td { padding: 8px 14px; border-bottom: 1px solid #ecf0f1; }
+  tr:last-child td { border-bottom: none; }
+  details.finding { background: #fff; border-radius: 6px; margin-bottom: 8px;
+                      box-shadow: 0 1px 4px rgba(0,0,0,.08); overflow: hidden; }
+  details.finding > summary { padding: 12px 16px; cursor: pointer; list-style: none;
+                               display: flex; align-items: center; gap: 10px; }
+  details.finding > summary::-webkit-details-marker { display: none; }
+  details.finding[open] > summary { border-bottom: 1px solid #ecf0f1; }
+  .finding-body { padding: 16px; }
+  .finding-body p { margin: 6px 0; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px;
+             font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #fff; }
+  .badge.critical, .badge.high { background: #e74c3c; }
+  .badge.medium { background: #e67e22; }
+  .badge.low { background: #f39c12; color: #fff; }
+  .badge.info { background: #3498db; }
+  .count { color: #7f8c8d; font-weight: 400; font-size: 0.9em; }
+  .clean { font-size: 1.1rem; color: #2ecc71; font-weight: 600; }
+  code { background: #ecf0f1; padding: 1px 5px; border-radius: 3px; font-size: 0.88em; word-break: break-all; }
+  footer { margin-top: 40px; text-align: center; color: #95a5a6; font-size: 0.85rem; }
+  .incomplete-warn { background: #ffeaa7; border: 1px solid #fdcb6e; border-radius: 6px;
+                       padding: 10px 16px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🔍 SiteSentry Scan Report</h1>
+  
+  <div class="meta-grid">
+    <div class="grade-badge">F</div>
+    <dt>Target</dt><dd><code>http://127.0.0.1:59205</code></dd>
+    <dt>Scan ID</dt><dd><code>3749f629-796f-4db4-8d2f-f0a29208fcba</code></dd>
+    <dt>Started</dt><dd>2026-11-02 13:10:10 UTC</dd>
+    <dt>Completed</dt><dd>2026-11-02 13:10:11 UTC</dd>
+    <dt>Pages Crawled</dt><dd>5</dd>
+    <dt>Score</dt><dd class="score">30/100</dd>
+    <dt>Total Findings</dt><dd>15</dd>
+  </div>
+
+  <h2>Score Breakdown</h2>
+  <table>
+    <thead><tr><th>Check ID</th><th>Check</th><th>Findings</th><th>Deduction</th></tr></thead>
+    <tbody><tr><td><code>hdr-csp</code></td><td>Content-Security-Policy</td><td>1</td><td>-7</td></tr><tr><td><code>hdr-hsts</code></td><td>HTTP Strict Transport Security</td><td>0</td><td>-0</td></tr><tr><td><code>hdr-xfo</code></td><td>X-Frame-Options / frame-ancestors</td><td>1</td><td>-3</td></tr><tr><td><code>hdr-xcto</code></td><td>X-Content-Type-Options</td><td>1</td><td>-3</td></tr><tr><td><code>hdr-referrer</code></td><td>Referrer-Policy</td><td>1</td><td>-0</td></tr><tr><td><code>hdr-permissions</code></td><td>Permissions-Policy</td><td>1</td><td>-0</td></tr><tr><td><code>cookie-flags</code></td><td>Cookie Security Flags</td><td>1</td><td>-7</td></tr><tr><td><code>tls-cert</code></td><td>TLS Certificate Health</td><td>0</td><td>-0</td></tr><tr><td><code>tls-protocol</code></td><td>TLS Protocol Version</td><td>0</td><td>-0</td></tr><tr><td><code>redirect-https</code></td><td>HTTP to HTTPS Redirect</td><td>1</td><td>-7</td></tr><tr><td><code>cors-misconfig</code></td><td>CORS Misconfiguration</td><td>0</td><td>-0</td></tr><tr><td><code>exposed-files</code></td><td>Exposed Sensitive Files</td><td>5</td><td>-30</td></tr><tr><td><code>tech-disclosure</code></td><td>Technology / Version Disclosure</td><td>2</td><td>-6</td></tr><tr><td><code>mixed-content</code></td><td>Mixed Content</td><td>0</td><td>-0</td></tr><tr><td><code>sri-missing</code></td><td>Subresource Integrity Missing</td><td>0</td><td>-0</td></tr><tr><td><code>dir-listing</code></td><td>Directory Listing Enabled</td><td>1</td><td>-7</td></tr></tbody>
+  </table>
+
+  <h2>Findings</h2>
+  <h2>🔴 High <span class="count">(3)</span></h2>
+<details class="finding sev-high"><summary><span class="badge high">HIGH</span> <strong>[exposed-files]</strong> .git/HEAD exposed</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/.git/HEAD</code></p><p><strong>Evidence:</strong> <code>HTTP 200, size=21 bytes, body starts with 'ref: refs/heads/main\n'</code></p><p><strong>Explanation:</strong> Git repository HEAD file is publicly accessible</p><p><strong>Fix:</strong> Remove or restrict access to /.git/HEAD. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts.</p></div></details>
+<details class="finding sev-high"><summary><span class="badge high">HIGH</span> <strong>[exposed-files]</strong> .env file exposed</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/.env</code></p><p><strong>Evidence:</strong> <code>HTTP 200, size=37 bytes</code></p><p><strong>Explanation:</strong> .env environment file is publicly accessible</p><p><strong>Fix:</strong> Remove or restrict access to /.env. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts.</p></div></details>
+<details class="finding sev-high"><summary><span class="badge high">HIGH</span> <strong>[exposed-files]</strong> backup.zip exposed</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/backup.zip</code></p><p><strong>Evidence:</strong> <code>HTTP 200, size=75 bytes</code></p><p><strong>Explanation:</strong> Backup archive is publicly accessible</p><p><strong>Fix:</strong> Remove or restrict access to /backup.zip. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts.</p></div></details>
+<h2>🟠 Medium <span class="count">(5)</span></h2>
+<details class="finding sev-medium"><summary><span class="badge medium">MEDIUM</span> <strong>[hdr-csp]</strong> Content-Security-Policy header missing</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>Header not present</code></p><p><strong>Explanation:</strong> Without a CSP, browsers cannot restrict which scripts, styles, or resources the page may load, making XSS attacks more impactful.</p><p><strong>Fix:</strong> Add a Content-Security-Policy header. Start with Content-Security-Policy: default-src 'self' and progressively tighten it.</p></div></details>
+<details class="finding sev-medium"><summary><span class="badge medium">MEDIUM</span> <strong>[cookie-flags]</strong> Cookie 'session_id' missing HttpOnly flag</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>Set-Cookie: session_id=... (HttpOnly absent)</code></p><p><strong>Explanation:</strong> The cookie 'session_id' is accessible to JavaScript. If the site has an XSS vulnerability, an attacker can steal this cookie.</p><p><strong>Fix:</strong> Add the HttpOnly flag: Set-Cookie: name=value; HttpOnly; ...</p></div></details>
+<details class="finding sev-medium"><summary><span class="badge medium">MEDIUM</span> <strong>[redirect-https]</strong> Site is served over plain HTTP</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205</code></p><p><strong>Evidence:</strong> <code>Target URL uses scheme: http</code></p><p><strong>Explanation:</strong> The site is not using HTTPS. All traffic including credentials and session tokens is transmitted in plaintext and can be intercepted by anyone on the network path.</p><p><strong>Fix:</strong> Obtain a TLS certificate and configure the server to serve all content over HTTPS. Redirect all HTTP traffic to HTTPS.</p></div></details>
+<details class="finding sev-medium"><summary><span class="badge medium">MEDIUM</span> <strong>[exposed-files]</strong> .DS_Store file exposed</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/.DS_Store</code></p><p><strong>Evidence:</strong> <code>HTTP 200, size=8 bytes</code></p><p><strong>Explanation:</strong> macOS .DS_Store file reveals directory structure</p><p><strong>Fix:</strong> Remove or restrict access to /.DS_Store. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts.</p></div></details>
+<details class="finding sev-medium"><summary><span class="badge medium">MEDIUM</span> <strong>[dir-listing]</strong> Directory listing is enabled</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/secret-dir/</code></p><p><strong>Evidence:</strong> <code>Page body matches directory listing pattern: '&lt;title&gt;\\s*Index of\\s*/'</code></p><p><strong>Explanation:</strong> The web server is configured to display a list of files in a directory when no index file is present. This can expose sensitive files, source code, backups, and internal structure to attackers.</p><p><strong>Fix:</strong> Disable directory listing in your web server configuration. Apache: Options -Indexes. nginx: autoindex off. IIS: Disable Directory Browsing in site settings.</p></div></details>
+<h2>🟡 Low <span class="count">(4)</span></h2>
+<details class="finding sev-low"><summary><span class="badge low">LOW</span> <strong>[hdr-xfo]</strong> X-Frame-Options or CSP frame-ancestors missing</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>X-Frame-Options: absent; CSP frame-ancestors: absent</code></p><p><strong>Explanation:</strong> Without framing protection, this page can be embedded in an attacker-controlled iframe, enabling clickjacking attacks.</p><p><strong>Fix:</strong> Add X-Frame-Options: DENY (or SAMEORIGIN), or add frame-ancestors 'self' to your Content-Security-Policy.</p></div></details>
+<details class="finding sev-low"><summary><span class="badge low">LOW</span> <strong>[hdr-xcto]</strong> X-Content-Type-Options: nosniff missing</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>Header not present</code></p><p><strong>Explanation:</strong> Without nosniff, some browsers may MIME-sniff responses and execute content as a different type than declared (e.g., execute a JSONP endpoint as a script).</p><p><strong>Fix:</strong> Add: X-Content-Type-Options: nosniff</p></div></details>
+<details class="finding sev-low"><summary><span class="badge low">LOW</span> <strong>[tech-disclosure]</strong> Server header reveals version</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>server: uvicorn, Apache/2.4.49</code></p><p><strong>Explanation:</strong> The 'server' header reveals the software product and version (Apache/2.4.49). This helps attackers identify unpatched software and target known CVEs.</p><p><strong>Fix:</strong> Remove or redact the 'server' header. In Apache: ServerTokens Prod. In nginx: server_tokens off. In PHP: expose_php = Off.</p></div></details>
+<details class="finding sev-low"><summary><span class="badge low">LOW</span> <strong>[tech-disclosure]</strong> X-Powered-By header reveals version</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>x-powered-by: PHP/7.4.3</code></p><p><strong>Explanation:</strong> The 'x-powered-by' header reveals the software product and version (PHP/7.4.3). This helps attackers identify unpatched software and target known CVEs.</p><p><strong>Fix:</strong> Remove or redact the 'x-powered-by' header. In Apache: ServerTokens Prod. In nginx: server_tokens off. In PHP: expose_php = Off.</p></div></details>
+<h2>ℹ️ Info <span class="count">(3)</span></h2>
+<details class="finding sev-info"><summary><span class="badge info">INFO</span> <strong>[hdr-referrer]</strong> Referrer-Policy header missing</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>Header not present</code></p><p><strong>Explanation:</strong> Without Referrer-Policy, the browser's default behaviour may leak full URLs (including query parameters with sensitive data) to third-party sites via the Referer header.</p><p><strong>Fix:</strong> Add: Referrer-Policy: strict-origin-when-cross-origin</p></div></details>
+<details class="finding sev-info"><summary><span class="badge info">INFO</span> <strong>[hdr-permissions]</strong> Permissions-Policy header missing</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/</code></p><p><strong>Evidence:</strong> <code>Header not present</code></p><p><strong>Explanation:</strong> Without Permissions-Policy (formerly Feature-Policy), powerful browser features (camera, microphone, geolocation) may be accessible to embedded third-party iframes.</p><p><strong>Fix:</strong> Add a Permissions-Policy header to restrict which browser features this page and its embedded content may use.</p></div></details>
+<details class="finding sev-info"><summary><span class="badge info">INFO</span> <strong>[exposed-files]</strong> robots.txt hints</summary><div class="finding-body"><p><strong>URL:</strong> <code>http://127.0.0.1:59205/robots.txt</code></p><p><strong>Evidence:</strong> <code>HTTP 200, size=32 bytes, body starts with 'User-agent: *\nDisallow: /admin/\n'</code></p><p><strong>Explanation:</strong> robots.txt is present; review Disallow rules for sensitive paths</p><p><strong>Fix:</strong> Remove or restrict access to /robots.txt. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts.</p></div></details>
+
+  <footer>Generated by SiteSentry 0.1.0 &middot; Passive security scanner</footer>
+</div>
+</body>
+</html>

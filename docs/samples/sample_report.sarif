@@ -1,0 +1,485 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SiteSentry",
+          "version": "0.1.0",
+          "informationUri": "https://github.com/Fantcoder/Site-Sentry",
+          "rules": [
+            {
+              "id": "hdr-csp",
+              "name": "HdrCsp",
+              "shortDescription": {
+                "text": "Content-Security-Policy"
+              },
+              "help": {
+                "text": "SiteSentry check: Content-Security-Policy"
+              }
+            },
+            {
+              "id": "hdr-hsts",
+              "name": "HdrHsts",
+              "shortDescription": {
+                "text": "HTTP Strict Transport Security"
+              },
+              "help": {
+                "text": "SiteSentry check: HTTP Strict Transport Security"
+              }
+            },
+            {
+              "id": "hdr-xfo",
+              "name": "HdrXfo",
+              "shortDescription": {
+                "text": "X-Frame-Options / frame-ancestors"
+              },
+              "help": {
+                "text": "SiteSentry check: X-Frame-Options / frame-ancestors"
+              }
+            },
+            {
+              "id": "hdr-xcto",
+              "name": "HdrXcto",
+              "shortDescription": {
+                "text": "X-Content-Type-Options"
+              },
+              "help": {
+                "text": "SiteSentry check: X-Content-Type-Options"
+              }
+            },
+            {
+              "id": "hdr-referrer",
+              "name": "HdrReferrer",
+              "shortDescription": {
+                "text": "Referrer-Policy"
+              },
+              "help": {
+                "text": "SiteSentry check: Referrer-Policy"
+              }
+            },
+            {
+              "id": "hdr-permissions",
+              "name": "HdrPermissions",
+              "shortDescription": {
+                "text": "Permissions-Policy"
+              },
+              "help": {
+                "text": "SiteSentry check: Permissions-Policy"
+              }
+            },
+            {
+              "id": "cookie-flags",
+              "name": "CookieFlags",
+              "shortDescription": {
+                "text": "Cookie Security Flags"
+              },
+              "help": {
+                "text": "SiteSentry check: Cookie Security Flags"
+              }
+            },
+            {
+              "id": "tls-cert",
+              "name": "TlsCert",
+              "shortDescription": {
+                "text": "TLS Certificate Health"
+              },
+              "help": {
+                "text": "SiteSentry check: TLS Certificate Health"
+              }
+            },
+            {
+              "id": "tls-protocol",
+              "name": "TlsProtocol",
+              "shortDescription": {
+                "text": "TLS Protocol Version"
+              },
+              "help": {
+                "text": "SiteSentry check: TLS Protocol Version"
+              }
+            },
+            {
+              "id": "redirect-https",
+              "name": "RedirectHttps",
+              "shortDescription": {
+                "text": "HTTP to HTTPS Redirect"
+              },
+              "help": {
+                "text": "SiteSentry check: HTTP to HTTPS Redirect"
+              }
+            },
+            {
+              "id": "cors-misconfig",
+              "name": "CorsMisconfig",
+              "shortDescription": {
+                "text": "CORS Misconfiguration"
+              },
+              "help": {
+                "text": "SiteSentry check: CORS Misconfiguration"
+              }
+            },
+            {
+              "id": "exposed-files",
+              "name": "ExposedFiles",
+              "shortDescription": {
+                "text": "Exposed Sensitive Files"
+              },
+              "help": {
+                "text": "SiteSentry check: Exposed Sensitive Files"
+              }
+            },
+            {
+              "id": "tech-disclosure",
+              "name": "TechDisclosure",
+              "shortDescription": {
+                "text": "Technology / Version Disclosure"
+              },
+              "help": {
+                "text": "SiteSentry check: Technology / Version Disclosure"
+              }
+            },
+            {
+              "id": "mixed-content",
+              "name": "MixedContent",
+              "shortDescription": {
+                "text": "Mixed Content"
+              },
+              "help": {
+                "text": "SiteSentry check: Mixed Content"
+              }
+            },
+            {
+              "id": "sri-missing",
+              "name": "SriMissing",
+              "shortDescription": {
+                "text": "Subresource Integrity Missing"
+              },
+              "help": {
+                "text": "SiteSentry check: Subresource Integrity Missing"
+              }
+            },
+            {
+              "id": "dir-listing",
+              "name": "DirListing",
+              "shortDescription": {
+                "text": "Directory Listing Enabled"
+              },
+              "help": {
+                "text": "SiteSentry check: Directory Listing Enabled"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "hdr-csp",
+          "level": "warning",
+          "message": {
+            "text": "Content-Security-Policy header missing\n\nEvidence: Header not present\n\nExplanation: Without a CSP, browsers cannot restrict which scripts, styles, or resources the page may load, making XSS attacks more impactful.\n\nFix: Add a Content-Security-Policy header. Start with Content-Security-Policy: default-src 'self' and progressively tighten it."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "checkId": "hdr-csp"
+          }
+        },
+        {
+          "ruleId": "hdr-xfo",
+          "level": "note",
+          "message": {
+            "text": "X-Frame-Options or CSP frame-ancestors missing\n\nEvidence: X-Frame-Options: absent; CSP frame-ancestors: absent\n\nExplanation: Without framing protection, this page can be embedded in an attacker-controlled iframe, enabling clickjacking attacks.\n\nFix: Add X-Frame-Options: DENY (or SAMEORIGIN), or add frame-ancestors 'self' to your Content-Security-Policy."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "checkId": "hdr-xfo"
+          }
+        },
+        {
+          "ruleId": "hdr-xcto",
+          "level": "note",
+          "message": {
+            "text": "X-Content-Type-Options: nosniff missing\n\nEvidence: Header not present\n\nExplanation: Without nosniff, some browsers may MIME-sniff responses and execute content as a different type than declared (e.g., execute a JSONP endpoint as a script).\n\nFix: Add: X-Content-Type-Options: nosniff"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "checkId": "hdr-xcto"
+          }
+        },
+        {
+          "ruleId": "hdr-referrer",
+          "level": "none",
+          "message": {
+            "text": "Referrer-Policy header missing\n\nEvidence: Header not present\n\nExplanation: Without Referrer-Policy, the browser's default behaviour may leak full URLs (including query parameters with sensitive data) to third-party sites via the Referer header.\n\nFix: Add: Referrer-Policy: strict-origin-when-cross-origin"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "info",
+            "checkId": "hdr-referrer"
+          }
+        },
+        {
+          "ruleId": "hdr-permissions",
+          "level": "none",
+          "message": {
+            "text": "Permissions-Policy header missing\n\nEvidence: Header not present\n\nExplanation: Without Permissions-Policy (formerly Feature-Policy), powerful browser features (camera, microphone, geolocation) may be accessible to embedded third-party iframes.\n\nFix: Add a Permissions-Policy header to restrict which browser features this page and its embedded content may use."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "info",
+            "checkId": "hdr-permissions"
+          }
+        },
+        {
+          "ruleId": "cookie-flags",
+          "level": "warning",
+          "message": {
+            "text": "Cookie 'session_id' missing HttpOnly flag\n\nEvidence: Set-Cookie: session_id=... (HttpOnly absent)\n\nExplanation: The cookie 'session_id' is accessible to JavaScript. If the site has an XSS vulnerability, an attacker can steal this cookie.\n\nFix: Add the HttpOnly flag: Set-Cookie: name=value; HttpOnly; ..."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "checkId": "cookie-flags"
+          }
+        },
+        {
+          "ruleId": "redirect-https",
+          "level": "warning",
+          "message": {
+            "text": "Site is served over plain HTTP\n\nEvidence: Target URL uses scheme: http\n\nExplanation: The site is not using HTTPS. All traffic including credentials and session tokens is transmitted in plaintext and can be intercepted by anyone on the network path.\n\nFix: Obtain a TLS certificate and configure the server to serve all content over HTTPS. Redirect all HTTP traffic to HTTPS."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "checkId": "redirect-https"
+          }
+        },
+        {
+          "ruleId": "exposed-files",
+          "level": "error",
+          "message": {
+            "text": ".git/HEAD exposed\n\nEvidence: HTTP 200, size=21 bytes, body starts with 'ref: refs/heads/main\\n'\n\nExplanation: Git repository HEAD file is publicly accessible\n\nFix: Remove or restrict access to /.git/HEAD. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/.git/HEAD"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "high",
+            "checkId": "exposed-files"
+          }
+        },
+        {
+          "ruleId": "exposed-files",
+          "level": "error",
+          "message": {
+            "text": ".env file exposed\n\nEvidence: HTTP 200, size=37 bytes\n\nExplanation: .env environment file is publicly accessible\n\nFix: Remove or restrict access to /.env. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/.env"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "high",
+            "checkId": "exposed-files"
+          }
+        },
+        {
+          "ruleId": "exposed-files",
+          "level": "warning",
+          "message": {
+            "text": ".DS_Store file exposed\n\nEvidence: HTTP 200, size=8 bytes\n\nExplanation: macOS .DS_Store file reveals directory structure\n\nFix: Remove or restrict access to /.DS_Store. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/.DS_Store"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "checkId": "exposed-files"
+          }
+        },
+        {
+          "ruleId": "exposed-files",
+          "level": "error",
+          "message": {
+            "text": "backup.zip exposed\n\nEvidence: HTTP 200, size=75 bytes\n\nExplanation: Backup archive is publicly accessible\n\nFix: Remove or restrict access to /backup.zip. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/backup.zip"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "high",
+            "checkId": "exposed-files"
+          }
+        },
+        {
+          "ruleId": "exposed-files",
+          "level": "none",
+          "message": {
+            "text": "robots.txt hints\n\nEvidence: HTTP 200, size=32 bytes, body starts with 'User-agent: *\\nDisallow: /admin/\\n'\n\nExplanation: robots.txt is present; review Disallow rules for sensitive paths\n\nFix: Remove or restrict access to /robots.txt. Ensure your web server does not serve sensitive files. Add these paths to your .gitignore and review deployment scripts."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/robots.txt"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "info",
+            "checkId": "exposed-files"
+          }
+        },
+        {
+          "ruleId": "tech-disclosure",
+          "level": "note",
+          "message": {
+            "text": "Server header reveals version\n\nEvidence: server: uvicorn, Apache/2.4.49\n\nExplanation: The 'server' header reveals the software product and version (Apache/2.4.49). This helps attackers identify unpatched software and target known CVEs.\n\nFix: Remove or redact the 'server' header. In Apache: ServerTokens Prod. In nginx: server_tokens off. In PHP: expose_php = Off."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "checkId": "tech-disclosure"
+          }
+        },
+        {
+          "ruleId": "tech-disclosure",
+          "level": "note",
+          "message": {
+            "text": "X-Powered-By header reveals version\n\nEvidence: x-powered-by: PHP/7.4.3\n\nExplanation: The 'x-powered-by' header reveals the software product and version (PHP/7.4.3). This helps attackers identify unpatched software and target known CVEs.\n\nFix: Remove or redact the 'x-powered-by' header. In Apache: ServerTokens Prod. In nginx: server_tokens off. In PHP: expose_php = Off."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "checkId": "tech-disclosure"
+          }
+        },
+        {
+          "ruleId": "dir-listing",
+          "level": "warning",
+          "message": {
+            "text": "Directory listing is enabled\n\nEvidence: Page body matches directory listing pattern: '<title>\\\\s*Index of\\\\s*/'\n\nExplanation: The web server is configured to display a list of files in a directory when no index file is present. This can expose sensitive files, source code, backups, and internal structure to attackers.\n\nFix: Disable directory listing in your web server configuration. Apache: Options -Indexes. nginx: autoindex off. IIS: Disable Directory Browsing in site settings."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:59205/secret-dir/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "checkId": "dir-listing"
+          }
+        }
+      ],
+      "properties": {
+        "scanId": "3749f629-796f-4db4-8d2f-f0a29208fcba",
+        "targetUrl": "http://127.0.0.1:59205",
+        "grade": "F",
+        "score": 30
+      }
+    }
+  ]
+}
