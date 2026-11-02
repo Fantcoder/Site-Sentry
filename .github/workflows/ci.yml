@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d8e58288 # v5.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-groups
+
+      - name: Lint with ruff
+        run: |
+          uv run ruff check src/ tests/
+          uv run ruff format --check src/ tests/
+
+      - name: Type check with mypy
+        run: uv run mypy
+
+      - name: Security audit with bandit
+        run: uv run bandit -r src/
+
+      - name: Check dependencies for vulnerabilities
+        run: uv run pip-audit
+
+      - name: Run tests with coverage
+        run: uv run pytest --cov=sitesentry --cov-report=term-missing --cov-report=xml --cov-fail-under=90
