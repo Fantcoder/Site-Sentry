@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0 JSON Schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "version": {
+      "type": "string",
+      "enum": ["2.1.0"]
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tool": {
+            "type": "object",
+            "properties": {
+              "driver": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "version": { "type": "string" },
+                  "informationUri": { "type": "string" },
+                  "rules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "shortDescription": {
+                          "type": "object",
+                          "properties": { "text": { "type": "string" } },
+                          "required": ["text"]
+                        }
+                      },
+                      "required": ["id"]
+                    }
+                  }
+                },
+                "required": ["name", "version"]
+              }
+            },
+            "required": ["driver"]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ruleId": { "type": "string" },
+                "level": { "type": "string", "enum": ["none", "note", "warning", "error"] },
+                "message": {
+                  "type": "object",
+                  "properties": { "text": { "type": "string" } },
+                  "required": ["text"]
+                },
+                "locations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "physicalLocation": {
+                        "type": "object",
+                        "properties": {
+                          "artifactLocation": {
+                            "type": "object",
+                            "properties": {
+                              "uri": { "type": "string" }
+                            },
+                            "required": ["uri"]
+                          }
+                        },
+                        "required": ["artifactLocation"]
+                      }
+                    },
+                    "required": ["physicalLocation"]
+                  }
+                }
+              },
+              "required": ["ruleId", "message"]
+            }
+          }
+        },
+        "required": ["tool", "results"]
+      }
+    }
+  },
+  "required": ["version", "runs"]
+}
