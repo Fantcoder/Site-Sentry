@@ -93,6 +93,7 @@ Keep the service bound to localhost while experimenting. When an API key is conf
 | Method | Path | Description |
 |---|---|---|
 | `POST` | `/api/v1/scans` | Submit background scan. Requires `"confirm_permission": true`. |
+| `GET` | `/api/v1/scans` | List recent scan history (up to 100). |
 | `GET` | `/api/v1/scans/{id}` | Check status and retrieve scan results. |
 | `GET` | `/api/v1/scans/{id}/report` | Retrieve report formatted as `json`, `md`, `html`, or `sarif`. |
 | `GET` | `/health` | Liveness healthcheck (returns `{"status": "ok"}`). |
