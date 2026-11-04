@@ -212,7 +212,6 @@ class TestRateLimit:
                 assert 429 in statuses
 
 
-
 class TestDashboard:
     @pytest.mark.asyncio
     async def test_dashboard_is_served(self, app_client: AsyncClient) -> None:
