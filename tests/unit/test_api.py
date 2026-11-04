@@ -218,7 +218,7 @@ class TestDashboard:
         response = await app_client.get("/")
         assert response.status_code == 200
         assert "SiteSentry" in response.text
-        assert "Start a security scan" in response.text
+        assert "Start a new scan" in response.text
 
     @pytest.mark.asyncio
     async def test_scan_history_endpoint(self, app_client: AsyncClient) -> None:
