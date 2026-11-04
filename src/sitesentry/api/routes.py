@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, field_validator
 
 from sitesentry.api.auth import verify_api_key
-from sitesentry.api.dashboard import DASHBOARD_HTML
+from sitesentry.dashboard import DASHBOARD_HTML
 from sitesentry.api.ratelimit import RateLimiter
 from sitesentry.config import ScanConfig
 from sitesentry.models import OutputFormat, ScanResult, ScanStatus
