@@ -210,3 +210,47 @@ class TestRateLimit:
                     statuses.append(resp.status_code)
                 # At least one 429 should appear
                 assert 429 in statuses
+
+
+
+class TestDashboard:
+    @pytest.mark.asyncio
+    async def test_dashboard_is_served(self, app_client: AsyncClient) -> None:
+        response = await app_client.get("/")
+        assert response.status_code == 200
+        assert "SiteSentry" in response.text
+        assert "Start a security scan" in response.text
+
+    @pytest.mark.asyncio
+    async def test_scan_history_endpoint(self, app_client: AsyncClient) -> None:
+        storage: ScanStorage = app_client.app.state.storage  # type: ignore[attr-defined]
+        result = ScanResult(
+            scan_id="history-test-001",
+            target_url="https://example.com",
+            started_at=datetime.datetime.now(datetime.UTC),
+            status=ScanStatus.completed,
+            grade="A",
+            score=100,
+        )
+        await storage.save_scan(result)
+
+        response = await app_client.get("/api/v1/scans?limit=10")
+        assert response.status_code == 200
+        items = response.json()
+        assert len(items) == 1
+        assert items[0]["scan_id"] == "history-test-001"
+        assert items[0]["grade"] == "A"
+        assert items[0]["score"] == 100
+
+    @pytest.mark.asyncio
+    async def test_scan_history_requires_api_key_when_configured(self, tmp_path: object) -> None:
+        import os
+
+        db_path = os.path.join(str(tmp_path), "history_auth.db")  # type: ignore[arg-type]
+        config = ApiConfig(db_path=db_path, api_key="test-secret-key")
+        app = create_app(api_config=config)
+        transport = ASGITransport(app=app)
+        async with AsyncClient(transport=transport, base_url="http://test") as client:
+            async with app.router.lifespan_context(app):
+                response = await client.get("/api/v1/scans")
+                assert response.status_code == 401
