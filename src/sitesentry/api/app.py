@@ -32,10 +32,20 @@ def create_app(api_config: ApiConfig | None = None) -> FastAPI:
         app.state.rate_limiter = RateLimiter(
             max_requests=api_config.per_client_rpm, window_seconds=60.0, max_clients=1000
         )
+        app.state.scan_tasks = set()
         app.state.db_ready = True
-        yield
-        # Shutdown (nothing to clean up)
-        app.state.db_ready = False
+        try:
+            yield
+        finally:
+            # Stop and await active scans before the event loop and database close.
+            app.state.db_ready = False
+            scan_tasks: set[asyncio.Task[None]] = app.state.scan_tasks
+            tasks = tuple(scan_tasks)
+            for task in tasks:
+                task.cancel()
+            if tasks:
+                await asyncio.gather(*tasks, return_exceptions=True)
+            scan_tasks.clear()
 
     app = FastAPI(
         title="SiteSentry",
