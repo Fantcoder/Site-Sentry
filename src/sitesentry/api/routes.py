@@ -180,7 +180,13 @@ async def create_scan(
         ignore_robots=body.ignore_robots,
         allow_private=body.allow_private,
     )
-    asyncio.create_task(_run_scan_background(scan_id, config, storage, semaphore))
+    task = asyncio.create_task(
+        _run_scan_background(scan_id, config, storage, semaphore),
+        name=f"sitesentry-scan-{scan_id}",
+    )
+    scan_tasks: set[asyncio.Task[None]] = request.app.state.scan_tasks
+    scan_tasks.add(task)
+    task.add_done_callback(scan_tasks.discard)
 
     return {"id": scan_id, "status": "pending"}
 
