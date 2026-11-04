@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, field_validator
 
 from sitesentry.api.auth import verify_api_key
+from sitesentry.api.dashboard import DASHBOARD_HTML
 from sitesentry.api.ratelimit import RateLimiter
 from sitesentry.config import ScanConfig
 from sitesentry.models import OutputFormat, ScanResult, ScanStatus
@@ -97,6 +98,26 @@ async def ready(storage: ScanStorage = Depends(get_storage)) -> dict[str, str]:
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=_problem(503, "Service Unavailable", str(exc)),
         )
+
+
+@router.get("/", response_class=HTMLResponse, include_in_schema=False)
+async def dashboard() -> HTMLResponse:
+    """Serve the self-contained web dashboard."""
+    return HTMLResponse(content=DASHBOARD_HTML)
+
+
+@router.get("/api/v1/scans", tags=["scans"])
+async def list_scans(
+    request: Request,
+    limit: int = 30,
+    storage: ScanStorage = Depends(get_storage),
+    api_config: Any = Depends(get_api_config),
+) -> list[dict[str, Any]]:
+    """Return recent scan summaries for the dashboard."""
+    verify_api_key(api_config.api_key, request)
+    bounded_limit = max(1, min(limit, 100))
+    summaries = await storage.list_scans(limit=bounded_limit)
+    return [summary.model_dump(mode="json") for summary in summaries]
 
 
 # ---------------------------------------------------------------------------
