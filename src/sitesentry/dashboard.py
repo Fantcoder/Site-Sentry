@@ -198,7 +198,7 @@ input::placeholder { color:#5d706b; }
 .score-block { display:flex; align-items:center; gap:12px; }
 .score-orbit {
   --score:0; display:grid; place-items:center; width:76px; height:76px; flex:none; border-radius:50%;
-  background:conic-gradient(var(--green) calc(var(--score)*1%), #2b3c40 0);
+  background:conic-gradient(var(--green) var(--score), #2b3c40 0);
   position:relative;
 }
 .score-orbit:before { content:""; position:absolute; inset:6px; border-radius:50%; background:#111d22; }
@@ -697,7 +697,7 @@ input::placeholder { color:#5d706b; }
     const overview = node("div","result-overview");
     const scoreBlock = node("div","score-block");
     const orbit = node("div","score-orbit");
-    orbit.style.setProperty("--score",String(Math.max(0,Math.min(100,Number(data.score)||0))));
+    orbit.style.setProperty("--score",Math.max(0,Math.min(100,Number(data.score)||0)) + "%");
     orbit.append(node("span","",String(data.score)));
     scoreBlock.append(orbit);
     const scoreCaption = node("div");
