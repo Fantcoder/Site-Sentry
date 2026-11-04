@@ -68,11 +68,32 @@ Launch the FastAPI service:
 uv run sitesentry serve --host 127.0.0.1 --port 8000
 ```
 
+
+### Web Dashboard
+
+The FastAPI service also serves a browser-based dashboard at **http://127.0.0.1:8000/**.
+
+The dashboard lets you:
+- Submit an authorized scan with configurable page and crawl-depth limits.
+- Watch pending/running scans refresh automatically.
+- Review the grade, score, pages scanned, findings, evidence, and remediation advice.
+- Browse recent scan history.
+- Download HTML, Markdown, JSON, or SARIF reports.
+
+Start the service, then open the dashboard in your browser:
+
+```bash
+uv run sitesentry serve --host 127.0.0.1 --port 8000
+```
+
+Keep the service bound to localhost while experimenting. When an API key is configured with `SITESENTRY_API_KEY`, paste it into the dashboard's API key field; the dashboard uses the existing authenticated API endpoints. Do not expose the service publicly without authentication and suitable network protections.
+
 ### Endpoints
 
 | Method | Path | Description |
 |---|---|---|
 | `POST` | `/api/v1/scans` | Submit background scan. Requires `"confirm_permission": true`. |
+| `GET` | `/api/v1/scans` | List recent scan history (up to 100). |
 | `GET` | `/api/v1/scans/{id}` | Check status and retrieve scan results. |
 | `GET` | `/api/v1/scans/{id}/report` | Retrieve report formatted as `json`, `md`, `html`, or `sarif`. |
 | `GET` | `/health` | Liveness healthcheck (returns `{"status": "ok"}`). |

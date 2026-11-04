@@ -14,6 +14,7 @@ from pydantic import BaseModel, field_validator
 from sitesentry.api.auth import verify_api_key
 from sitesentry.api.ratelimit import RateLimiter
 from sitesentry.config import ScanConfig
+from sitesentry.dashboard import DASHBOARD_HTML
 from sitesentry.models import OutputFormat, ScanResult, ScanStatus
 from sitesentry.report import ReportGenerator
 from sitesentry.storage import ScanStorage
@@ -99,6 +100,26 @@ async def ready(storage: ScanStorage = Depends(get_storage)) -> dict[str, str]:
         )
 
 
+@router.get("/", response_class=HTMLResponse, include_in_schema=False)
+async def dashboard() -> HTMLResponse:
+    """Serve the self-contained web dashboard."""
+    return HTMLResponse(content=DASHBOARD_HTML)
+
+
+@router.get("/api/v1/scans", tags=["scans"])
+async def list_scans(
+    request: Request,
+    limit: int = 30,
+    storage: ScanStorage = Depends(get_storage),
+    api_config: Any = Depends(get_api_config),
+) -> list[dict[str, Any]]:
+    """Return recent scan summaries for the dashboard."""
+    verify_api_key(api_config.api_key, request)
+    bounded_limit = max(1, min(limit, 100))
+    summaries = await storage.list_scans(limit=bounded_limit)
+    return [summary.model_dump(mode="json") for summary in summaries]
+
+
 # ---------------------------------------------------------------------------
 # POST /api/v1/scans
 # ---------------------------------------------------------------------------
@@ -159,7 +180,13 @@ async def create_scan(
         ignore_robots=body.ignore_robots,
         allow_private=body.allow_private,
     )
-    asyncio.create_task(_run_scan_background(scan_id, config, storage, semaphore))
+    task = asyncio.create_task(
+        _run_scan_background(scan_id, config, storage, semaphore),
+        name=f"sitesentry-scan-{scan_id}",
+    )
+    scan_tasks: set[asyncio.Task[None]] = request.app.state.scan_tasks
+    scan_tasks.add(task)
+    task.add_done_callback(scan_tasks.discard)
 
     return {"id": scan_id, "status": "pending"}
 
